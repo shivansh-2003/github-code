@@ -1,9 +1,8 @@
-from bug_agent import find_bugs
+from readme_generator import ReadmeGenerator
+generator = ReadmeGenerator()
+readme1 = generator.generate_readme(
+        repo_path="/Users/shivanshmahajan/Desktop/github-code/ingestion/downloaded_repo",
+        output_path="./memo_README.md"
+    )
 
-# Read your test file
-with open("/Users/shivanshmahajan/Desktop/github-code/sample_code/test.java", "r") as f:
-    code_content = f.read()
-
-# Analyze for bugs
-result = find_bugs(code_content)
-print(result)
+print(readme1)

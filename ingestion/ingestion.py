@@ -4,6 +4,7 @@ import json
 from dotenv import load_dotenv
 import os
 import base64
+from github import Github
 load_dotenv()
 
 # Your GitHub personal access token
@@ -76,8 +77,15 @@ def save_repos_to_json(filename="repos.json"):
         return None
 
 def main():
-    repos = save_repos_to_json()
-    print(f"Result: {repos is not None}")
+    # Create GitHub instance
+    g = Github(token)
+    
+    # Get the repository object
+    repo = g.get_repo("shivansh-2003/memo")
+    
+    # Now call download_repo_contents with the repo object
+    download_repo_contents(repo)
+    print("Repository download completed!")
 
 if __name__ == "__main__":
     main()
