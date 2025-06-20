@@ -88,6 +88,5 @@ def main():
     print("Repository download completed!")
 
 if __name__ == "__main__":
-    main()
+    main()    # Download repository contents
 
-    # Download repository contents

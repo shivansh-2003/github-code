@@ -6,3 +6,6 @@ langchain
 langchain-openai
 langchain-community
 langchain-core
+
+redis
+redis-py-cluster
