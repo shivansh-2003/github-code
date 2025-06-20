@@ -23,9 +23,8 @@ class RedisRepoStorage:
     - user:{user_id}:repo:{repo_name}:structure -> List of directory structure
     """
     
-    def __init__(self, redis_host='redis-11290.c239.us-east-1-2.ec2.redns.redis-cloud.com', 
-                 redis_port=11290, redis_db=0, redis_password='H010eGSnpXJnso5GfUxkzvtU9qYZpnnD',
-                 redis_username='default'):
+    def __init__(self, redis_host=None, redis_port=None, redis_db=0, 
+                 redis_password=None, redis_username=None):
         """
         Initialize Redis connection and GitHub client.
         
@@ -36,13 +35,19 @@ class RedisRepoStorage:
             redis_password: Redis password (Redis Cloud password)
             redis_username: Redis username (Redis Cloud username)
         """
+        # Get credentials from environment variables with fallbacks
+        self.redis_host = redis_host or os.getenv('REDIS_HOST', 'redis-11290.c239.us-east-1-2.ec2.redns.redis-cloud.com')
+        self.redis_port = redis_port or int(os.getenv('REDIS_PORT', 11290))
+        self.redis_password = redis_password or os.getenv('REDIS_PASSWORD', 'H010eGSnpXJnso5GfUxkzvtU9qYZpnnD')
+        self.redis_username = redis_username or os.getenv('REDIS_USERNAME', 'default')
+        
         # Initialize Redis connection for Redis Cloud
         self.redis_client = redis.Redis(
-            host=redis_host,
-            port=redis_port,
+            host=self.redis_host,
+            port=self.redis_port,
             db=redis_db,
-            username=redis_username,
-            password=redis_password,
+            username=self.redis_username,
+            password=self.redis_password,
             decode_responses=True  # Automatically decode byte responses to strings
         )
         
